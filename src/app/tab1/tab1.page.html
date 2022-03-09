@@ -1,17 +1,50 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title> Tareas pendientes </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true">  
+  <ion-row>    
+    <ion-col size-sm="10" size-md="10" size-lg="11">
+      <ion-item>
+        <ion-label position="floating">Tarea</ion-label>
+        <ion-input
+          [(ngModel)]="task"
+        ></ion-input>
+      </ion-item>
+    </ion-col>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+    <ion-col>
+      <ion-button (click)="addTask()" fill="clear" shape="round" *ngIf="task">
+        <ion-icon name="add-circle-outline" style="font-size: 35px"></ion-icon>
+      </ion-button>
+    </ion-col>    
+  </ion-row>
+
+  <ion-row>        
+
+    <ion-col size-sm="12" size-md="12" size-lg="12">      
+      <ion-list *ngIf="tasks.length>0">
+        <ion-item-sliding *ngFor="let item of tasks; let i=index">
+          <ion-item-options side="start" (ionSwipe)="taskComplete(item,i)">
+            <ion-item-option expandable color="success">
+              <ion-icon name="checkmark-done-outline"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+          <ion-item>
+            <ion-label appLongPress (press) = "importantTask(i)">{{item}}</ion-label>            
+          </ion-item>
+          <ion-item-options side="end" (ionSwipe)="removeTask(i)">
+            <ion-item-option expandable color="danger">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>          
+        </ion-item-sliding>
+    </ion-list>
+    </ion-col>    
+  </ion-row>
+<ion-row>
+  
+</ion-row>
 </ion-content>
